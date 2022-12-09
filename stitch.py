@@ -1,4 +1,3 @@
-from hashlib import algorithms_available
 import cv2
 import matplotlib.pyplot as plt
 
@@ -116,7 +115,12 @@ def homography_raw(path1,path2):
     return H
 
 
+def detect_and_describe(image):
+    sift = cv2.xfeatures2d.SIFT_create()
 
+    kp, des = sift.detectAndCompute(cv2.cvtColor(image,cv2.COLOR_RGB2GRAY),None)
+
+    return kp, des
 
 
 if __name__=="__main__":
@@ -184,6 +188,7 @@ if __name__=="__main__":
     plt.imshow(warped_image)
     plt.show()
 
+    plt.imsave("stitched.png",warped_image)
 
     # warped_image = cv2.warpPerspective(im1,H,(im2.shape[1],im2.shape[0]))
 

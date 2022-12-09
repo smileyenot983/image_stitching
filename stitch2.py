@@ -1,11 +1,13 @@
-from hashlib import new
 import cv2
 import numpy as np
 import matplotlib.pyplot as plt
 
 
 def find_matches(im1,im2):
-    sift = cv2.SIFT_create()
+    # sift = cv2.SIFT_create()
+    # surf = cv2.xfeatures2d.SURF_create()
+    sift = cv2.xfeatures2d.SIFT_create()
+
     kp1, des1 = sift.detectAndCompute(cv2.cvtColor(im1,cv2.COLOR_RGB2GRAY),None)
     kp2, des2 = sift.detectAndCompute(cv2.cvtColor(im2,cv2.COLOR_RGB2GRAY),None)
 
@@ -114,6 +116,8 @@ good_matches, kp1, kp2 = find_matches(im1,im2)
 print(f"n good matches:{len(good_matches)}")
 
 H,status = find_homography(good_matches,kp1,kp2)
+
+
 
 print(H)
 
